@@ -111,6 +111,14 @@ public class Game extends AppCompatActivity {
                 doStuff(iv7,card);
             }
         });
+
+        iv8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int card = Integer.parseInt((String) v.getTag());
+                doStuff(iv8,card);
+            }
+        });
     }
 
     public void doStuff(ImageView vi, int card){
@@ -163,7 +171,7 @@ public class Game extends AppCompatActivity {
                     //check if the selected image are equal
                     calculate();
                 }
-            },100);
+            },500);
         }
 
 

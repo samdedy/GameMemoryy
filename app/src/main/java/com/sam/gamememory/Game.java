@@ -10,10 +10,13 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class Game extends AppCompatActivity {
 
     ImageView iv1,iv2,iv3,iv4,iv5,iv6,iv7,iv8;
-    public Integer[] arrayGame1 = new Integer[8];
+    public Integer[] arrayGame1 = {11,12,13,14,21,22,23,24};
     public Integer[] arrayGame2 = new Integer[8];
     int def,img0,img1,img2,img3,img4,img5,img6,img7;
     int cardNumber=1;
@@ -34,87 +37,113 @@ public class Game extends AppCompatActivity {
         iv7 = findViewById(R.id.iv7);
         iv8 = findViewById(R.id.iv8);
 
-        int x=10;
-        for (int i=0; i<arrayGame1.length; i++){
-            arrayGame1[i]=x;
-            x++;
-        }
+//        int x=10;
+//        for (int i=0; i<arrayGame1.length; i++){
+//            arrayGame1[i]=x;
+//            x++;
+//        }
 
+        iv1.setTag("0");
+        iv2.setTag("1");
+        iv3.setTag("2");
+        iv4.setTag("3");
+        iv5.setTag("4");
+        iv6.setTag("5");
+        iv7.setTag("6");
+        iv8.setTag("7");
 
         cardResource();
-    }
 
-    public void iv1(View view){
-        int card = 0;
-        doStuff(iv1,card);
-    }
+        Collections.shuffle(Arrays.asList(arrayGame1));
 
-    public void iv2(View view){
-        int card = 1;
-        doStuff(iv2,card);
-    }
+        iv1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int card = Integer.parseInt((String) v.getTag());
+                doStuff(iv1,card);
+            }
+        });
 
-    public void iv3(View view){
-        int card = 2;
-        doStuff(iv3,card);
-    }
+        iv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int card = Integer.parseInt((String) v.getTag());
+                doStuff(iv2,card);
+            }
+        });
 
-    public void iv4(View view){
-        int card = 3;
-        doStuff(iv4,card);
-    }
+        iv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int card = Integer.parseInt((String) v.getTag());
+                doStuff(iv3,card);
+            }
+        });
 
-    public void iv5(View view){
-        int card = 4;
-        doStuff(iv5,card);
-    }
+        iv4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int card = Integer.parseInt((String) v.getTag());
+                doStuff(iv4,card);
+            }
+        });
 
-    public void iv6(View view){
-        int card = 5;
-        doStuff(iv6,card);
-    }
+        iv5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int card = Integer.parseInt((String) v.getTag());
+                doStuff(iv5,card);
+            }
+        });
 
-    public void iv7(View view){
-        int card = 6;
-        doStuff(iv7,card);
-    }
+        iv6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int card = Integer.parseInt((String) v.getTag());
+                doStuff(iv6,card);
+            }
+        });
 
-    public void iv8(View view){
-        int card = 7;
-        doStuff(iv8,card);
+        iv7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int card = Integer.parseInt((String) v.getTag());
+                doStuff(iv7,card);
+            }
+        });
     }
 
     public void doStuff(ImageView vi, int card){
-        if (arrayGame1[card]==10){
+        if (arrayGame1[card]==11){
             vi.setImageResource(img0);
-        } else if (arrayGame1[card]==11){
-            vi.setImageResource(img1);
         } else if (arrayGame1[card]==12){
-            vi.setImageResource(img2);
+            vi.setImageResource(img1);
         } else if (arrayGame1[card]==13){
-            vi.setImageResource(img3);
+            vi.setImageResource(img2);
         } else if (arrayGame1[card]==14){
+            vi.setImageResource(img3);
+        } else if (arrayGame1[card]==21){
             vi.setImageResource(img4);
-        } else if (arrayGame1[card]==15){
+        } else if (arrayGame1[card]==22){
             vi.setImageResource(img5);
-        } else if (arrayGame1[card]==16){
+        } else if (arrayGame1[card]==23){
             vi.setImageResource(img6);
-        } else if (arrayGame1[card]==17){
+        } else if (arrayGame1[card]==24){
             vi.setImageResource(img7);
         }
 
         if (cardNumber == 1){
             firstCard = arrayGame1[card];
-            if (firstCard>13){
-                firstCard = firstCard - 3;
+            if (firstCard>20){
+                firstCard = firstCard - 10;
             }
             cardNumber = 2;
             clickFirst= card;
             vi.setEnabled(false);
         } else if(cardNumber == 2){
             secondCard = arrayGame1[card];
-            if (secondCard>13){
-                secondCard = secondCard - 3;
+            if (secondCard>20){
+                secondCard = secondCard - 10;
             }
             cardNumber = 1;
             clickSecond = card;
@@ -198,6 +227,37 @@ public class Game extends AppCompatActivity {
         iv7.setEnabled(true);
         iv8.setEnabled(true);
 
+        cek();
+    }
+
+    private void cek() {
+        if (iv1.getVisibility() == View.INVISIBLE &&
+                iv2.getVisibility() == View.INVISIBLE &&
+                iv3.getVisibility() == View.INVISIBLE &&
+                iv4.getVisibility() == View.INVISIBLE &&
+                iv5.getVisibility() == View.INVISIBLE &&
+                iv6.getVisibility() == View.INVISIBLE &&
+                iv7.getVisibility() == View.INVISIBLE &&
+                iv8.getVisibility() == View.INVISIBLE) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(Game.this);
+            alert.setTitle("Berhasil").setIcon(R.drawable.ic_question).setMessage("Jika Kamu Ingin Bermain Lagi Klik New Game")
+                    .setCancelable(false).setPositiveButton("NEW GAME", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    Intent intent = new Intent(getApplicationContext(), Game.class);
+                    startActivity(intent);
+                    finish();
+                }
+            })
+                    .setNegativeButton("Keluar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    });
+            AlertDialog alertDialog = alert.create();
+            alertDialog.show();
+        }
     }
 
     public void cardResource(){
